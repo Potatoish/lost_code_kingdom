@@ -1,0 +1,101 @@
+<svg width="960" height="720" viewBox="0 0 960 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldStroke" x1="120" y1="48" x2="840" y2="672" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E5BE47"/>
+      <stop offset="1" stop-color="#B98500"/>
+    </linearGradient>
+    <linearGradient id="goldText" x1="324" y1="470" x2="643" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF0C2"/>
+      <stop offset="1" stop-color="#D5A10E"/>
+    </linearGradient>
+    <linearGradient id="snakeMain" x1="391" y1="196" x2="585" y2="478" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3BB17A"/>
+      <stop offset="1" stop-color="#187F5A"/>
+    </linearGradient>
+    <linearGradient id="snakeHighlight" x1="420" y1="216" x2="566" y2="460" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#52CC97"/>
+      <stop offset="1" stop-color="#2A9D6E"/>
+    </linearGradient>
+    <filter id="panelGlow" x="0" y="0" width="960" height="720" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#000000" flood-opacity="0.32"/>
+    </filter>
+    <filter id="softGlow" x="286" y="110" width="387" height="469" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="18" flood-color="#1DBF73" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#panelGlow)">
+    <rect x="26" y="26" width="908" height="668" rx="22" fill="#1B130D"/>
+    <rect x="26" y="26" width="908" height="668" rx="22" stroke="url(#goldStroke)" stroke-width="4"/>
+    <rect x="48" y="48" width="864" height="624" rx="16" stroke="#7C5A0A" stroke-width="1.4" opacity="0.9"/>
+  </g>
+
+  <g opacity="0.9">
+    <path d="M88 68L104 84L88 100L72 84L88 68Z" fill="#C99914"/>
+    <path d="M872 68L888 84L872 100L856 84L872 68Z" fill="#C99914"/>
+    <path d="M88 620L104 636L88 652L72 636L88 620Z" fill="#C99914"/>
+        <path d="M872 620L888 636L872 652L856 636L872 620Z" fill="#C99914"/>
+  </g>
+
+  <g opacity="0.85" stroke="#8B670B" stroke-width="1.6">
+    <path d="M124 84H434"/>
+    <path d="M526 84H836"/>
+    <path d="M146 616H434"/>
+    <path d="M526 616H814"/>
+  </g>
+
+  <g fill="#B68810" opacity="0.95">
+    <circle cx="480" cy="84" r="5.5"/>
+    <circle cx="480" cy="616" r="5.5"/>
+    <path d="M480 138L487 151H473L480 138Z"/>
+    <path d="M480 115L488 128H472L480 115Z"/>
+    <path d="M432 548L446 556L432 564L418 556L432 548Z"/>
+    <path d="M480 548L488 556L480 564L472 556L480 548Z"/>
+    <path d="M528 548L542 556L528 564L514 556L528 548Z"/>
+  </g>
+
+  <text x="480" y="116" fill="#C99B1E" font-size="18" font-family="Georgia, 'Times New Roman', serif" letter-spacing="8" text-anchor="middle">
+    * AN ENCHANTED PYTHON ADVENTURE *
+  </text>
+
+  <g fill="#1F4B31" opacity="0.8" font-size="14" font-family="'Courier New', monospace">
+    <text x="124" y="152">def restore(kingdom):</text>
+    <text x="124" y="178">return kingdom.fix()</text>
+    <text x="716" y="152">x = "free"</text>
+    <text x="124" y="520">for bug in glitches:</text>
+    <text x="706" y="520">print("healed")</text>
+  </g>
+
+  <g filter="url(#softGlow)">
+    <circle cx="480" cy="300" r="158" fill="#06230C" stroke="#E2AE17" stroke-width="4"/>
+    <circle cx="480" cy="300" r="141" stroke="#6F5A13" stroke-width="1.4"/>
+
+    <path d="M480 176C463 176 450 189 450 204C450 220 463 232 480 232C497 232 510 220 510 204C510 189 497 176 480 176Z" fill="url(#snakeMain)"/>
+    <path d="M493 214C493 234 508 249 526 264C554 287 573 311 573 350C573 423 519 456 468 468C430 478 395 495 385 531C378 555 387 577 410 589" stroke="url(#snakeMain)" stroke-width="58" stroke-linecap="round"/>
+    <path d="M483 214C483 229 495 242 510 254C537 275 551 297 551 333C551 395 506 426 460 438C422 448 394 465 387 496C381 521 387 540 404 551" stroke="url(#snakeHighlight)" stroke-width="24" stroke-linecap="round" opacity="0.92"/>
+    <ellipse cx="468" cy="196" rx="9" ry="10" fill="#17311E"/>
+    <ellipse cx="494" cy="196" rx="9" ry="10" fill="#17311E"/>
+    <circle cx="468" cy="196" r="4" fill="#EAB522"/>
+    <circle cx="494" cy="196" r="4" fill="#EAB522"/>
+    <path d="M475 213C478 215 482 215 485 213" stroke="#16311F" stroke-width="3" stroke-linecap="round"/>
+    <path d="M480 232V248" stroke="#BC2A21" stroke-width="4" stroke-linecap="round"/>
+    <path d="M467 220L480 232L493 220" stroke="#BC2A21" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="480" y="462" fill="#FFF3CF" font-size="34" font-weight="700" font-family="Georgia, 'Times New Roman', serif" letter-spacing="6" text-anchor="middle">
+    THE LOST CODE
+  </text>
+  <text x="480" y="548" fill="url(#goldText)" font-size="72" font-weight="700" font-family="Georgia, 'Times New Roman', serif" letter-spacing="5" text-anchor="middle">
+    KINGDOM
+  </text>
+
+  <g opacity="0.9" stroke="#8B670B" stroke-width="1.4">
+    <path d="M222 548H415"/>
+    <path d="M545 548H738"/>
+  </g>
+
+  <text x="480" y="598" fill="#D9C6A0" font-size="18" font-style="italic" font-family="Georgia, 'Times New Roman', serif" letter-spacing="2" text-anchor="middle">
+    Restore the kingdom. Learn Python.
+  </text>
+</svg>
+

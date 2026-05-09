@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-label="Forest of Variables realm art">
+  <defs>
+    <linearGradient id="forestSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#04141d" />
+      <stop offset="50%" stop-color="#0b2533" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#fef3c7" stop-opacity="0.95" />
+      <stop offset="50%" stop-color="#fde68a" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#fde68a" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#123227" />
+      <stop offset="100%" stop-color="#08131d" />
+    </linearGradient>
+    <linearGradient id="mist" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.08" />
+    </linearGradient>
+    <filter id="forestBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="18" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="700" fill="url(#forestSky)" />
+  <circle cx="926" cy="126" r="116" fill="url(#moonGlow)" />
+  <circle cx="926" cy="126" r="46" fill="#fef3c7" opacity="0.85" />
+
+  <g opacity="0.85">
+    <circle cx="104" cy="92" r="2" fill="#d1fae5" />
+    <circle cx="182" cy="58" r="1.6" fill="#fde68a" />
+    <circle cx="310" cy="104" r="2.2" fill="#bbf7d0" />
+    <circle cx="510" cy="72" r="1.8" fill="#e0f2fe" />
+    <circle cx="734" cy="84" r="2" fill="#fef9c3" />
+    <circle cx="1086" cy="88" r="2.4" fill="#d1fae5" />
+  </g>
+
+  <g filter="url(#forestBlur)" opacity="0.7">
+    <circle cx="218" cy="196" r="144" fill="#34d399" />
+    <circle cx="480" cy="252" r="164" fill="#22c55e" opacity="0.7" />
+    <circle cx="866" cy="250" r="178" fill="#38bdf8" opacity="0.45" />
+  </g>
+
+  <path d="M0 398c106-84 208-110 308-82 92 26 162 22 248-14 92-38 176-42 272-10 70 24 138 66 372 106V700H0Z" fill="#0d2221" />
+  <path d="M0 460c112-58 220-72 324-36 96 34 168 34 252 0 88-36 174-42 266-10 106 36 196 82 358 88V700H0Z" fill="url(#ground)" />
+
+  <g opacity="0.44">
+    <path d="M0 516C150 480 290 478 430 504c126 24 248 16 356-12 122-30 238-30 414 18" fill="none" stroke="url(#mist)" stroke-width="42" stroke-linecap="round" />
+  </g>
+
+  <g opacity="0.95">
+    <g transform="translate(92 174)">
+      <rect x="54" y="174" width="24" height="230" rx="12" fill="#3f2a17" />
+      <circle cx="68" cy="142" r="78" fill="#14532d" />
+      <circle cx="22" cy="170" r="56" fill="#166534" />
+      <circle cx="114" cy="176" r="48" fill="#22c55e" opacity="0.78" />
+      <path d="M40 128h58M54 98h28M54 156h38" stroke="#a7f3d0" stroke-opacity="0.8" stroke-width="4" stroke-linecap="round" />
+    </g>
+    <g transform="translate(276 126)">
+      <rect x="70" y="194" width="30" height="264" rx="14" fill="#4c3119" />
+      <circle cx="84" cy="154" r="108" fill="#166534" />
+      <circle cx="18" cy="194" r="64" fill="#15803d" />
+      <circle cx="154" cy="196" r="60" fill="#22c55e" opacity="0.82" />
+      <path d="M40 126h88M50 164h68M84 98v92" stroke="#d1fae5" stroke-opacity="0.78" stroke-width="5" stroke-linecap="round" />
+    </g>
+    <g transform="translate(538 156)">
+      <rect x="62" y="192" width="26" height="240" rx="12" fill="#4a311d" />
+      <circle cx="74" cy="154" r="88" fill="#14532d" />
+      <circle cx="24" cy="182" r="58" fill="#15803d" />
+      <circle cx="138" cy="182" r="48" fill="#22c55e" opacity="0.8" />
+      <path d="M34 142h80M46 174h56M74 110v76" stroke="#bbf7d0" stroke-opacity="0.76" stroke-width="4" stroke-linecap="round" />
+    </g>
+    <g transform="translate(790 138)">
+      <rect x="72" y="208" width="28" height="250" rx="14" fill="#4e321b" />
+      <circle cx="86" cy="164" r="98" fill="#166534" />
+      <circle cx="20" cy="202" r="60" fill="#15803d" />
+      <circle cx="158" cy="196" r="56" fill="#22c55e" opacity="0.82" />
+      <path d="M48 140h82M56 176h68M86 112v86" stroke="#d1fae5" stroke-opacity="0.78" stroke-width="4" stroke-linecap="round" />
+    </g>
+  </g>
+
+  <path d="M332 620c78-40 118-62 156-54 36 8 70 38 120 38 54 0 84-30 122-34 44-6 86 16 170 52" fill="none" stroke="#7c5c2b" stroke-width="18" stroke-linecap="round" opacity="0.55" />
+
+  <g transform="translate(430 456)">
+    <rect x="0" y="0" width="118" height="94" rx="18" fill="#0d2330" stroke="#34d399" stroke-opacity="0.36" />
+    <rect x="10" y="10" width="98" height="74" rx="12" fill="#08131d" stroke="#7dd3fc" stroke-opacity="0.18" />
+    <text x="59" y="48" text-anchor="middle" fill="#d1fae5" font-size="28" font-family="Georgia, serif">name</text>
+    <text x="59" y="72" text-anchor="middle" fill="#7dd3fc" font-size="16" font-family="Georgia, serif">= 'Liora'</text>
+  </g>
+
+  <g transform="translate(598 430)">
+    <rect x="0" y="0" width="138" height="108" rx="22" fill="#10233c" stroke="#fbbf24" stroke-opacity="0.34" />
+    <rect x="12" y="12" width="114" height="84" rx="14" fill="#08131d" stroke="#34d399" stroke-opacity="0.24" />
+    <text x="69" y="52" text-anchor="middle" fill="#fef3c7" font-size="26" font-family="Georgia, serif">print()</text>
+    <text x="69" y="78" text-anchor="middle" fill="#a7f3d0" font-size="16" font-family="Georgia, serif">awakens the grove</text>
+  </g>
+
+  <g opacity="0.86">
+    <circle cx="226" cy="514" r="5" fill="#bbf7d0" />
+    <circle cx="308" cy="558" r="4" fill="#fde68a" />
+    <circle cx="780" cy="520" r="4" fill="#a7f3d0" />
+    <circle cx="858" cy="474" r="5" fill="#fef3c7" />
+    <circle cx="944" cy="538" r="4" fill="#7dd3fc" />
+    <circle cx="520" cy="366" r="3.5" fill="#bbf7d0" />
+    <circle cx="694" cy="326" r="3.5" fill="#fde68a" />
+  </g>
+</svg>

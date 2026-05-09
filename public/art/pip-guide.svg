@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Pip the Python guide portrait">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#03111f" />
+      <stop offset="55%" stop-color="#0b1f2c" />
+      <stop offset="100%" stop-color="#140d26" />
+    </linearGradient>
+    <radialGradient id="aura" cx="50%" cy="38%" r="48%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.9" />
+      <stop offset="45%" stop-color="#22c55e" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="snakeBody" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#bbf7d0" />
+      <stop offset="38%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <linearGradient id="snakeBelly" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef3c7" />
+      <stop offset="100%" stop-color="#fde68a" />
+    </linearGradient>
+    <linearGradient id="bookPage" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff7d6" />
+      <stop offset="100%" stop-color="#e8d6a7" />
+    </linearGradient>
+    <linearGradient id="bookCover" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14324d" />
+      <stop offset="100%" stop-color="#27153d" />
+    </linearGradient>
+    <radialGradient id="orb" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#d9fbff" />
+      <stop offset="45%" stop-color="#7dd3fc" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#0f766e" stop-opacity="0.1" />
+    </radialGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+    <filter id="ringGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" />
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)" />
+  <circle cx="256" cy="212" r="176" fill="url(#aura)" />
+  <circle cx="256" cy="212" r="150" fill="none" stroke="#7dd3fc" stroke-opacity="0.18" stroke-width="2" />
+  <circle cx="256" cy="212" r="132" fill="none" stroke="#fbbf24" stroke-opacity="0.24" stroke-dasharray="6 14" stroke-width="2" />
+  <circle cx="256" cy="212" r="112" fill="#08131d" fill-opacity="0.6" stroke="#34d399" stroke-opacity="0.18" />
+
+  <g filter="url(#softGlow)" opacity="0.7">
+    <circle cx="176" cy="126" r="20" fill="#34d399" />
+    <circle cx="350" cy="154" r="16" fill="#38bdf8" />
+    <circle cx="300" cy="322" r="18" fill="#fbbf24" />
+  </g>
+
+  <g opacity="0.9">
+    <circle cx="98" cy="98" r="2.5" fill="#e0f2fe" />
+    <circle cx="118" cy="70" r="1.6" fill="#fde68a" />
+    <circle cx="422" cy="90" r="2.2" fill="#d1fae5" />
+    <circle cx="388" cy="122" r="1.6" fill="#fef3c7" />
+    <circle cx="100" cy="390" r="2" fill="#bbf7d0" />
+    <circle cx="410" cy="392" r="2.4" fill="#bae6fd" />
+  </g>
+
+  <g transform="translate(110 310)">
+    <path d="M0 52C44 18 104 0 146 2c27 2 49 10 72 26 23-16 45-24 72-26 42-2 102 16 146 50v64H0Z" fill="#07131f" opacity="0.6" />
+    <path d="M20 48C54 24 100 10 144 10c31 0 58 8 82 24 24-16 51-24 82-24 44 0 90 14 124 38v56H20Z" fill="url(#bookCover)" stroke="#60a5fa" stroke-opacity="0.2" />
+    <path d="M32 54c31-22 71-34 112-34 32 0 59 8 82 24 23-16 50-24 82-24 41 0 81 12 112 34v34H32Z" fill="url(#bookPage)" />
+    <path d="M226 44v44" stroke="#9a7b41" stroke-width="3" stroke-linecap="round" />
+    <path d="M140 44h46m-30 12h30m102-12h46m-30 12h30" stroke="#9a7b41" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round" />
+    <text x="144" y="84" text-anchor="middle" fill="#17465a" font-size="24" font-family="Georgia, serif">print()</text>
+    <text x="312" y="84" text-anchor="middle" fill="#17465a" font-size="24" font-family="Georgia, serif">name</text>
+  </g>
+
+  <g>
+    <circle cx="256" cy="232" r="34" fill="url(#orb)" opacity="0.95" />
+    <circle cx="256" cy="232" r="38" fill="none" stroke="#d1fae5" stroke-opacity="0.55" stroke-width="2" />
+    <g filter="url(#ringGlow)">
+      <circle cx="256" cy="232" r="52" fill="none" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="2" />
+    </g>
+    <path d="M241 220h30M256 205v30M246 212l20 20M266 212l-20 20" stroke="#eff6ff" stroke-width="3.5" stroke-linecap="round" opacity="0.9" />
+  </g>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M172 314c-34-26-42-66-32-98 16-52 76-79 124-63 43 15 58 52 41 79-20 31-67 34-90 15-20-17-19-48 6-62 20-12 47-8 60 11" stroke="url(#snakeBody)" stroke-width="42" />
+    <path d="M172 314c-34-26-42-66-32-98 16-52 76-79 124-63 43 15 58 52 41 79-20 31-67 34-90 15-20-17-19-48 6-62 20-12 47-8 60 11" stroke="url(#snakeBelly)" stroke-width="18" stroke-dasharray="12 16" opacity="0.95" />
+    <path d="M220 330c58-8 102-24 130-48 24-20 32-48 23-76-9-28-34-50-68-56" stroke="url(#snakeBody)" stroke-width="38" />
+    <path d="M220 330c58-8 102-24 130-48 24-20 32-48 23-76-9-28-34-50-68-56" stroke="url(#snakeBelly)" stroke-width="14" stroke-dasharray="12 16" opacity="0.95" />
+  </g>
+
+  <g transform="translate(324 124)">
+    <path d="M0 52c0-34 26-60 58-60 34 0 62 26 62 60 0 37-28 70-62 70-32 0-58-33-58-70Z" fill="url(#snakeBody)" stroke="#d1fae5" stroke-opacity="0.25" />
+    <path d="M30 70c10 16 26 24 44 24 17 0 31-8 42-22" stroke="#fef3c7" stroke-width="8" stroke-linecap="round" opacity="0.9" />
+    <circle cx="40" cy="44" r="7" fill="#082f49" />
+    <circle cx="84" cy="44" r="7" fill="#082f49" />
+    <circle cx="38" cy="42" r="2" fill="#ecfeff" />
+    <circle cx="82" cy="42" r="2" fill="#ecfeff" />
+    <path d="M56 58c6-4 12-4 18 0" stroke="#0f172a" stroke-width="4" stroke-linecap="round" />
+    <path d="M59 74h12c0 10-2 18-6 24-4-6-6-14-6-24Z" fill="#ec4899" opacity="0.9" />
+  </g>
+</svg>

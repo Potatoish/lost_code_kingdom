@@ -1,0 +1,50 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" fill="#050816"/>
+  <rect width="1200" height="700" fill="url(#bgGlow)" opacity="0.95"/>
+  <g opacity="0.45">
+    <path d="M0 188C79 127 173 97 277 106C401 117 452 194 571 204C663 212 707 157 805 139C927 117 1031 173 1200 132V700H0V188Z" fill="#11162E"/>
+    <path d="M0 272C96 239 186 226 303 250C395 269 439 324 521 337C620 352 678 299 761 277C865 249 960 282 1200 239V700H0V272Z" fill="#1A2040"/>
+  </g>
+  <g opacity="0.94">
+    <path d="M0 410C87 331 181 291 286 300C392 309 482 389 588 397C691 404 792 333 893 324C1000 315 1089 358 1200 322V700H0V410Z" fill="#1B1231"/>
+    <path d="M0 518C80 453 176 417 280 425C377 432 460 495 568 503C688 513 776 440 883 432C1006 423 1096 470 1200 446V700H0V518Z" fill="#0F1024"/>
+  </g>
+  <g opacity="0.88">
+    <ellipse cx="238" cy="376" rx="92" ry="112" fill="url(#amberLoop)"/>
+    <ellipse cx="238" cy="376" rx="57" ry="72" fill="#050816"/>
+    <ellipse cx="602" cy="308" rx="118" ry="138" fill="url(#cyanLoop)"/>
+    <ellipse cx="602" cy="308" rx="77" ry="93" fill="#050816"/>
+    <ellipse cx="922" cy="394" rx="86" ry="107" fill="url(#amberLoop)"/>
+    <ellipse cx="922" cy="394" rx="53" ry="68" fill="#050816"/>
+  </g>
+  <g opacity="0.42" stroke="#F7C766" stroke-width="4">
+    <path d="M175 505C216 454 286 454 331 505" stroke-linecap="round"/>
+    <path d="M541 462C586 403 661 404 711 462" stroke-linecap="round"/>
+    <path d="M866 520C911 466 980 466 1024 520" stroke-linecap="round"/>
+  </g>
+  <g opacity="0.8">
+    <circle cx="184" cy="152" r="3" fill="#FFD37A"/>
+    <circle cx="268" cy="196" r="4" fill="#7DD3FC"/>
+    <circle cx="412" cy="128" r="3" fill="#FFD37A"/>
+    <circle cx="564" cy="176" r="5" fill="#A78BFA"/>
+    <circle cx="706" cy="134" r="3" fill="#FFD37A"/>
+    <circle cx="838" cy="164" r="4" fill="#7DD3FC"/>
+    <circle cx="1006" cy="139" r="4" fill="#FFD37A"/>
+    <circle cx="1088" cy="204" r="3" fill="#A78BFA"/>
+  </g>
+  <defs>
+    <radialGradient id="bgGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 240) rotate(90) scale(420 720)">
+      <stop stop-color="#1D294F"/>
+      <stop offset="0.48" stop-color="#120E25"/>
+      <stop offset="1" stop-color="#050816"/>
+    </radialGradient>
+    <radialGradient id="amberLoop" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 0) rotate(90) scale(112 92)">
+      <stop stop-color="#FCD34D"/>
+      <stop offset="1" stop-color="#F59E0B" stop-opacity="0.22"/>
+    </radialGradient>
+    <radialGradient id="cyanLoop" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 0) rotate(90) scale(138 118)">
+      <stop stop-color="#67E8F9"/>
+      <stop offset="1" stop-color="#7C3AED" stop-opacity="0.2"/>
+    </radialGradient>
+  </defs>
+</svg>
