@@ -2,7 +2,7 @@
 
 A dark fantasy, browser-based Python learning adventure built with Next.js. Players restore broken realms by solving small interactive coding puzzles, using Python logic to unlock each chapter and recover the kingdom’s lost codebook.
 
-![Landing page](docs/screenshots/landing-page.svg)
+![Landing page](<img width="1919" height="929" alt="700003239_961416300011032_6815731413696731047_n" src="https://github.com/user-attachments/assets/eac55377-0007-4f10-9a34-73731c82e01c" />)
 
 ## Overview
 
