@@ -1,0 +1,65 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1400" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#040d1f"/>
+      <stop offset="0.55" stop-color="#091f33"/>
+      <stop offset="1" stop-color="#0f3042"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1200 220) rotate(90) scale(420 650)">
+      <stop stop-color="#2fd5c8" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#2fd5c8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1400" height="900" fill="url(#bg2)"/>
+  <rect width="1400" height="900" fill="url(#halo)"/>
+
+  <g>
+    <text x="112" y="140" fill="#7CE3D0" font-family="Segoe UI, sans-serif" font-size="28" letter-spacing="5">QUEST DASHBOARD</text>
+    <text x="112" y="220" fill="#E7F0F0" font-family="Georgia, serif" font-size="76">Pick, Preview, Play</text>
+    <text x="112" y="280" fill="#D2E4EA" font-family="Georgia, serif" font-size="30">The kingdom is now grouped into quick views, so the home page feels</text>
+    <text x="112" y="318" fill="#D2E4EA" font-family="Georgia, serif" font-size="30">like a game menu and less like a long scroll.</text>
+    <rect x="980" y="195" width="270" height="48" rx="24" fill="#152d3d" stroke="#3ACFC0" stroke-opacity="0.4"/>
+    <text x="1014" y="227" fill="#D5EEF0" font-family="Segoe UI, sans-serif" font-size="20">Progress: 0 of 4 playable chapters completed</text>
+  </g>
+
+  <g>
+    <rect x="112" y="360" width="330" height="76" rx="18" fill="#11263a" stroke="#32b8a7" stroke-opacity="0.5"/>
+    <rect x="467" y="360" width="330" height="76" rx="18" fill="#11263a" stroke="#32b8a7" stroke-opacity="0.5"/>
+    <rect x="822" y="360" width="330" height="76" rx="18" fill="#11263a" stroke="#32b8a7" stroke-opacity="0.5"/>
+    <text x="215" y="410" fill="#A7F4E9" font-family="Georgia, serif" font-size="34">Realms</text>
+    <text x="570" y="410" fill="#E7F1F0" font-family="Georgia, serif" font-size="34">Puzzles</text>
+    <text x="930" y="410" fill="#E7F1F0" font-family="Georgia, serif" font-size="34">Pip Guide</text>
+  </g>
+
+  <g>
+    <rect x="112" y="470" width="360" height="220" rx="20" fill="#0d1f2f" stroke="#3eb1a4" stroke-opacity="0.42"/>
+    <rect x="500" y="470" width="510" height="270" rx="20" fill="#0d1f2f" stroke="#3eb1a4" stroke-opacity="0.42"/>
+    <rect x="1030" y="470" width="260" height="220" rx="20" fill="#0d1f2f" stroke="#3eb1a4" stroke-opacity="0.42"/>
+
+    <text x="145" y="520" fill="#8EDBD3" font-family="Segoe UI, sans-serif" font-size="18" letter-spacing="4">CHAPTER 1</text>
+    <text x="145" y="584" fill="#E9F5F4" font-family="Georgia, serif" font-size="40">Forest of Variables</text>
+    <text x="145" y="630" fill="#A4BDD2" font-family="Segoe UI, sans-serif" font-size="22">Enter Forest</text>
+
+    <text x="535" y="514" fill="#8EDBD3" font-family="Segoe UI, sans-serif" font-size="18" letter-spacing="4">CHAPTER PREVIEW</text>
+    <text x="535" y="590" fill="#E9F5F4" font-family="Georgia, serif" font-size="54">Forest of Variables</text>
+    <text x="535" y="640" fill="#D7EBF0" font-family="Georgia, serif" font-size="26">The forest has forgotten its names. Restore the spirits</text>
+    <text x="535" y="673" fill="#D7EBF0" font-family="Georgia, serif" font-size="26">by assigning values, updating them, and speaking</text>
+    <text x="535" y="706" fill="#D7EBF0" font-family="Georgia, serif" font-size="26">them aloud.</text>
+
+    <rect x="535" y="735" width="160" height="66" rx="14" fill="#112a39" stroke="#3ac8bc"/>
+    <text x="548" y="777" fill="#DDF7F1" font-family="Segoe UI, sans-serif" font-size="19">Focus</text>
+    <text x="550" y="794" fill="#DDF7F1" font-family="Georgia, serif" font-size="20">Variables, data types, reassignment, print()</text>
+
+    <rect x="720" y="735" width="170" height="66" rx="14" fill="#112a39" stroke="#3ac8bc"/>
+    <text x="735" y="777" fill="#DDF7F1" font-family="Segoe UI, sans-serif" font-size="19">Status</text>
+    <text x="735" y="794" fill="#DDF7F1" font-family="Georgia, serif" font-size="20">Enter Forest</text>
+
+    <rect x="610" y="820" width="200" height="58" rx="16" fill="#62E2D1"/>
+    <text x="660" y="858" fill="#041b2b" font-family="Segoe UI, sans-serif" font-size="24" font-weight="600">Enter Forest</text>
+
+    <rect x="1060" y="500" width="200" height="148" rx="18" fill="#0b2435" stroke="#4dd4bf" stroke-opacity="0.4"/>
+    <rect x="1090" y="530" width="140" height="74" rx="16" fill="#7be7d9" opacity="0.22"/>
+    <circle cx="1160" cy="566" r="28" fill="#4dd4bf" opacity="0.9"/>
+    <text x="1105" y="640" fill="#DDEFF1" font-family="Segoe UI, sans-serif" font-size="18">Lumenwood</text>
+  </g>
+</svg>

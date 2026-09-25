@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The Lost Code Kingdom
 
-## Getting Started
+A dark fantasy, browser-based Python learning adventure built with Next.js. Players restore broken realms by solving small interactive coding puzzles, using Python logic to unlock each chapter and recover the kingdom’s lost codebook.
 
-First, run the development server:
+![Landing page](docs/screenshots/landing-page.svg)
+
+## Overview
+
+The Lost Code Kingdom turns Python practice into a magical quest. Each chapter introduces a new concept—variables, conditions, loops, and lists—through story-driven puzzle play, concise hints, and a Spell Lab that encourages experimentation.
+
+### Core gameplay loop
+
+- Explore the kingdom through a world map and chapter preview screens
+- Solve a sequence of Python challenges in each realm
+- Use a guided Spell Lab to test and refine code
+- Advance through story and unlock new areas of the map
+
+## Features
+
+- Four playable chapters with chapter-specific puzzle flows
+- Interactive Python playground built for in-browser experimentation
+- Progress tracking with local persistence
+- Story-rich realm pages and fantasy UI treatment
+- Responsive dark mode adventure layout for desktop and tablet play
+
+## Screenshots
+
+### Landing experience
+
+![Landing page](docs/screenshots/landing-page.svg)
+
+### Quest dashboard
+
+![Quest dashboard](docs/screenshots/quest-dashboard.svg)
+
+### In-game play area
+
+![Play area](docs/screenshots/play-area.svg)
+
+### Chapter page
+
+![Chapter page](docs/screenshots/chapter-page.svg)
+
+### World map hub
+
+![World map](docs/screenshots/world-map.svg)
+
+## Tech stack
+
+- Next.js
+- React
+- JavaScript
+- CSS and custom UI styling
+- Browser-based Python logic flow for chapter puzzles
+
+## Getting started
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the app locally:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 to play.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```text
+src/
+  app/
+    page.js                 # Home / quest dashboard
+    chapters/
+      page.js               # World map
+      forest-of-variables/
+      river-of-conditions/
+      looping-caverns/
+      list-labyrinth/
+  components/
+    ChapterAdventurePage.js
+    PythonPlayground.js
+    AccountPanel.js
+    PipDialogue.js
+  lib/
+    chapterConfigs.js
+    gameUi.js
+    spellLabStorage.js
+    pyodideRuntime.js
+public/
+  art/
+    forest-of-variables-scene.svg
+    river-of-conditions-scene.svg
+    looping-caverns-scene.svg
+    list-labyrinth-scene.svg
+```
 
-## Learn More
+## Notes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is designed as a teaching-focused adventure and is intentionally lightweight: the chapter data, puzzle states, and local progression are all managed in the browser so it can be run and demoed quickly.

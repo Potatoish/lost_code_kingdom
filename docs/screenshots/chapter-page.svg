@@ -1,0 +1,52 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg5" x1="0" y1="0" x2="1400" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#051724"/>
+      <stop offset="0.6" stop-color="#091d2d"/>
+      <stop offset="1" stop-color="#14304b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="900" fill="url(#bg5)"/>
+  <rect x="90" y="60" width="1220" height="765" rx="30" fill="#081d2f" stroke="#36b9ae" stroke-opacity="0.38"/>
+
+  <g>
+    <text x="150" y="150" fill="#7AE7D8" font-family="Segoe UI, sans-serif" font-size="24" letter-spacing="5">CHAPTER 1</text>
+    <text x="150" y="245" fill="#EAF2F2" font-family="Georgia, serif" font-size="82">Forest of Variables</text>
+    <text x="150" y="320" fill="#D3E5EC" font-family="Georgia, serif" font-size="28">The forest has forgotten its names. Restore the spirits by assigning</text>
+    <text x="150" y="360" fill="#D3E5EC" font-family="Georgia, serif" font-size="28">values, updating them, and speaking them aloud.</text>
+    <rect x="1015" y="110" width="140" height="42" rx="21" fill="#0d2436" stroke="#3dd0b9"/>
+    <circle cx="1042" cy="131" r="7" fill="#6debd9"/>
+    <text x="1057" y="139" fill="#EAF9F7" font-family="Segoe UI, sans-serif" font-size="18">Guest Hero</text>
+    <rect x="1170" y="110" width="110" height="42" rx="21" fill="#0d2436" stroke="#3dd0b9"/>
+    <text x="1200" y="138" fill="#EAF9F7" font-family="Segoe UI, sans-serif" font-size="18">World Map</text>
+
+    <rect x="150" y="395" width="150" height="36" rx="18" fill="#0b2940" stroke="#3ad6c0"/>
+    <text x="200" y="420" fill="#D7F9F4" font-family="Segoe UI, sans-serif" font-size="16" letter-spacing="3">STATUS</text>
+    <text x="150" y="470" fill="#E8F8F6" font-family="Segoe UI, sans-serif" font-size="20">In Progress</text>
+  </g>
+
+  <g>
+    <rect x="150" y="500" width="1000" height="250" rx="22" fill="#0c2435" stroke="#39b3a4" stroke-opacity="0.42"/>
+    <text x="190" y="560" fill="#89DED1" font-family="Segoe UI, sans-serif" font-size="22" letter-spacing="4">MISSION DECK</text>
+    <text x="190" y="610" fill="#DAEEF2" font-family="Georgia, serif" font-size="26">Stay in one mode, then switch when you need story, lab,</text>
+    <text x="190" y="648" fill="#DAEEF2" font-family="Georgia, serif" font-size="26">spells, or rewards.</text>
+
+    <rect x="760" y="545" width="140" height="84" rx="18" fill="#62E3D8"/>
+    <text x="798" y="580" fill="#051d2d" font-family="Segoe UI, sans-serif" font-size="28" font-weight="700">Play</text>
+    <text x="786" y="610" fill="#051d2d" font-family="Segoe UI, sans-serif" font-size="18">o/5</text>
+
+    <rect x="910" y="545" width="140" height="84" rx="18" fill="#11293b" stroke="#41b8aa"/>
+    <text x="960" y="580" fill="#E4F9F5" font-family="Segoe UI, sans-serif" font-size="22">Lab</text>
+    <text x="946" y="610" fill="#E4F9F5" font-family="Segoe UI, sans-serif" font-size="18">NEED</text>
+
+    <rect x="1060" y="545" width="140" height="84" rx="18" fill="#11293b" stroke="#41b8aa"/>
+    <text x="1083" y="580" fill="#E4F9F5" font-family="Segoe UI, sans-serif" font-size="22">Briefing</text>
+
+    <text x="155" y="725" fill="#D6EAF1" font-family="Segoe UI, sans-serif" font-size="18">Puzzles: 0 of 5  |  Lab required  |  Chapter flow: 0 of 6  |  Spell Lab: Required</text>
+  </g>
+
+  <g>
+    <rect x="150" y="775" width="1000" height="20" rx="10" fill="#203c4f"/>
+    <rect x="150" y="775" width="180" height="20" rx="10" fill="#69E6D8"/>
+  </g>
+</svg>

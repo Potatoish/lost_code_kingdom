@@ -1,0 +1,53 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="1400" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#040e1f"/>
+      <stop offset="0.6" stop-color="#081d31"/>
+      <stop offset="1" stop-color="#0a3046"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="900" fill="url(#bg4)"/>
+
+  <g>
+    <text x="110" y="120" fill="#7EE2D3" font-family="Segoe UI, sans-serif" font-size="26" letter-spacing="5">WORLD MAP</text>
+    <text x="110" y="215" fill="#E8F2F0" font-family="Georgia, serif" font-size="88">World Map Hub</text>
+    <text x="110" y="286" fill="#D6E6ED" font-family="Georgia, serif" font-size="30">Choose your next destination. Chapters 1 through 4 are currently playable,</text>
+    <text x="110" y="324" fill="#D6E6ED" font-family="Georgia, serif" font-size="30">while the remaining realms stay sealed for future chapters.</text>
+
+    <rect x="980" y="150" width="110" height="42" rx="21" fill="#0e2739" stroke="#3ad7c5"/>
+    <circle cx="1010" cy="171" r="7" fill="#66e9d8"/>
+    <text x="1025" y="179" fill="#E6F9F6" font-family="Segoe UI, sans-serif" font-size="18">Guest Hero</text>
+
+    <rect x="1130" y="150" width="140" height="42" rx="21" fill="#0e2739" stroke="#3ad7c5"/>
+    <text x="1175" y="178" fill="#E6F9F6" font-family="Segoe UI, sans-serif" font-size="18">Back to Home</text>
+
+    <rect x="1290" y="150" width="150" height="42" rx="21" fill="#6ae6d8"/>
+    <text x="1328" y="178" fill="#031c29" font-family="Segoe UI, sans-serif" font-size="18" font-weight="600">Start Chapter 1</text>
+  </g>
+
+  <g>
+    <rect x="110" y="390" width="370" height="240" rx="20" fill="#0b2135" stroke="#38b9a2" stroke-opacity="0.42"/>
+    <text x="150" y="450" fill="#A5F0E5" font-family="Segoe UI, sans-serif" font-size="20" letter-spacing="4">MAP BRIEFING</text>
+    <text x="150" y="528" fill="#EAF5F3" font-family="Georgia, serif" font-size="46">The Codebook Atlas</text>
+    <text x="150" y="600" fill="#D0E0E7" font-family="Georgia, serif" font-size="26">Four realms are now open: a forest of names, a river of</text>
+    <text x="150" y="636" fill="#D0E0E7" font-family="Georgia, serif" font-size="26">decisions, caverns built from repetition, and a labyrinth</text>
+    <text x="150" y="672" fill="#D0E0E7" font-family="Georgia, serif" font-size="26">of lists.</text>
+  </g>
+
+  <g>
+    <rect x="520" y="390" width="760" height="300" rx="22" fill="#0b2135" stroke="#38b9a2" stroke-opacity="0.42"/>
+    <text x="555" y="450" fill="#A5F0E5" font-family="Segoe UI, sans-serif" font-size="20" letter-spacing="4">CHAPTER ROUTES</text>
+    <text x="555" y="520" fill="#D9EFF0" font-family="Georgia, serif" font-size="26">Follow the glowing routes to enter a realm. Locked lands remain sealed</text>
+    <text x="555" y="554" fill="#D9EFF0" font-family="Georgia, serif" font-size="26">until the codebook is restored.</text>
+    <rect x="570" y="585" width="190" height="60" rx="14" fill="#0d2e43" stroke="#5dced4"/>
+    <text x="628" y="622" fill="#D9F6F2" font-family="Segoe UI, sans-serif" font-size="18">ATLAS LAYER ACTIVE</text>
+  </g>
+
+  <g>
+    <rect x="110" y="690" width="1170" height="140" rx="16" fill="#0b1e2c" stroke="#35ad9f" stroke-opacity="0.42"/>
+    <text x="150" y="750" fill="#A4EDE0" font-family="Segoe UI, sans-serif" font-size="20" letter-spacing="4">PROGRESS</text>
+    <text x="150" y="795" fill="#E3F5F3" font-family="Georgia, serif" font-size="32">Progress: 0 of 4 playable chapters completed</text>
+    <rect x="990" y="720" width="220" height="54" rx="18" fill="#0d2a3e" stroke="#42c1b7"/>
+    <text x="1035" y="756" fill="#DFFBFA" font-family="Segoe UI, sans-serif" font-size="18">Reset Demo Progress</text>
+  </g>
+</svg>
