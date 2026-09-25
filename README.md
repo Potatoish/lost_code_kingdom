@@ -2,11 +2,7 @@
 
 A dark fantasy, browser-based Python learning adventure built with Next.js. Players restore broken realms by solving small interactive coding puzzles, using Python logic to unlock each chapter and recover the kingdom’s lost codebook.
 
-<<<<<<< HEAD
-![Landing page](<img width="1919" height="929" alt="700003239_961416300011032_6815731413696731047_n" src="https://github.com/user-attachments/assets/eac55377-0007-4f10-9a34-73731c82e01c" />)
-=======
-![Landing page](src/png/692926952_1631276017927178_7812055782053727842_n.png)
->>>>>>> 78a23fa (png)
+![Landing page](src/png/landing-page.png)
 
 ## Overview
 
@@ -31,27 +27,27 @@ The Lost Code Kingdom turns Python practice into a magical quest. Each chapter i
 
 ### Landing experience
 
-![Landing page](src/png/692926952_1631276017927178_7812055782053727842_n.png)
+![Landing page](src/png/landing-page.png)
 
 ### Quest dashboard
 
-![Quest dashboard](src/png/699453490_1625055675229704_4763504589701139886_n.png)
+![Quest dashboard](src/png/quest-dashboard.png)
 
 ### In-game play area
 
-![Play area](src/png/699945875_2323119104882091_4820705186888540992_n.png)
+![Play area](src/png/play-area.png)
 
 ### Chapter page
 
-![Chapter page](src/png/700003239_961416300011032_6815731413696731047_n.png)
+![Chapter page](src/png/chapter-page.png)
 
 ### World map hub
 
-![World map](src/png/701419882_1314726717498068_7785602697412687779_n.png)
+![World map](src/png/world-map.png)
 
 ### Extra shot
 
-![Additional screenshot](src/png/702026764_1659291668456886_669702736987113148_n.png)
+![Additional screenshot](src/png/extra-shot.png)
 
 ## Tech stack
 
