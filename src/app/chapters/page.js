@@ -86,7 +86,7 @@ export default function ChaptersPage() {
       </div>
 
       <div className="relative z-10">
-        <header className={`${siteFrame} pt-10 pb-6 fade-in`}>
+        <header className={`${siteFrame} relative z-30 pt-10 pb-6 fade-in`}>
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.4em] text-emerald-200">
@@ -115,7 +115,7 @@ export default function ChaptersPage() {
           </div>
         </header>
 
-        <section className={`${siteFrame} pb-16 fade-in`}>
+        <section className={`${siteFrame} relative z-10 pb-16 fade-in`}>
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.6fr]">
             <div className="space-y-6">
               <div className={`${panelClass} p-6 hover-lift`}>

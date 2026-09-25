@@ -28,9 +28,9 @@ const PIECES = [
   { left: 88, delay: 0.4, duration: 2.6, rotate: -16, color: '#fcd34d' },
 ];
 
-export default function ConfettiBurst() {
+export default function ConfettiBurst({ className = '' }) {
   return (
-    <div className="confetti-burst" aria-hidden="true">
+    <div className={`confetti-burst ${className}`.trim()} aria-hidden="true">
       {PIECES.map((piece, index) => (
         <span
           key={`${piece.left}-${index}`}
@@ -40,7 +40,7 @@ export default function ConfettiBurst() {
             backgroundColor: piece.color,
             animationDelay: `${piece.delay}s`,
             animationDuration: `${piece.duration}s`,
-            transform: `rotate(${piece.rotate}deg)`,
+            '--confetti-rotate': `${piece.rotate + 160}deg`,
           }}
         />
       ))}

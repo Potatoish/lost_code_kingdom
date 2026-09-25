@@ -233,15 +233,33 @@ export default function PythonPlayground({
     setError('');
     setRuntimeState('loading');
 
-    const result = await runPythonSnippet(code, (message) => {
-      setRuntimeMessage(message);
-      setRuntimeState(message.toLowerCase().includes('ready') ? 'ready' : 'loading');
-    });
+    try {
+      const result = await runPythonSnippet(code, (message) => {
+        setRuntimeMessage(message);
+        setRuntimeState(message.toLowerCase().includes('ready') ? 'ready' : 'loading');
+      });
 
-    setOutput(result.output || '(no output yet)');
-    setError(result.error);
-    setIsRunning(false);
-    return result;
+      setOutput(result.output || '(no output yet)');
+      setError(result.error);
+      return result;
+    } catch (runtimeError) {
+      const message =
+        runtimeError?.message ?? 'The spell engine could not be loaded.';
+
+      setRuntimeMessage(message);
+      setRuntimeState('error');
+      setOutput(playground.placeholderOutput ?? '(no output yet)');
+      setError(message);
+
+      return {
+        output: '',
+        error: message,
+        hasError: true,
+        engineUnavailable: true,
+      };
+    } finally {
+      setIsRunning(false);
+    }
   }
 
   async function handleRun() {
@@ -256,6 +274,32 @@ export default function PythonPlayground({
 
   async function handleCheckChallenge() {
     const result = await executeCode();
+
+    if (result.engineUnavailable && typeof playground.fallbackValidate === 'function') {
+      const passedFallbackCheck = playground.fallbackValidate({ code });
+
+      setHiddenCheckSummary(
+        passedFallbackCheck && hiddenCheckCount
+          ? {
+              passedCount: hiddenCheckCount,
+              totalCount: hiddenCheckCount,
+            }
+          : null
+      );
+      setChallengeState(passedFallbackCheck ? 'success' : 'failure');
+      setChallengeMessage(
+        passedFallbackCheck
+          ? 'The spell engine is blocked, but your code matches the chapter goal. Spell Lab cleared.'
+          : 'The spell engine is blocked, so the fallback check needs your code to match the chapter goal exactly.'
+      );
+
+      if (passedFallbackCheck && !effectiveCleared) {
+        setHasClearedChallenge(true);
+        onSolved();
+      }
+
+      return;
+    }
 
     if (result.hasError) {
       setChallengeState('failure');
@@ -342,7 +386,7 @@ export default function PythonPlayground({
               {chapterTitle}
             </div>
             <div className={`rounded-full border px-3 py-2 text-xs ${statusBadgeClasses}`}>
-              {effectiveCleared ? 'Spell Lab Cleared' : 'Required for completion'}
+              {effectiveCleared ? 'Spell Lab Cleared' : 'Lab Objective'}
             </div>
           </div>
         </div>
@@ -380,19 +424,19 @@ export default function PythonPlayground({
             <div className="mt-4 flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
-                onClick={handleRun}
+                onClick={handleCheckChallenge}
                 disabled={isRunning}
                 className={`${primaryButtonClass} w-full sm:w-auto disabled:cursor-not-allowed disabled:opacity-50`}
               >
-                {isRunning ? 'Running Spell...' : 'Run Code'}
+                {isRunning ? 'Running Spell...' : 'Clear Spell Lab'}
               </button>
               <button
                 type="button"
-                onClick={handleCheckChallenge}
+                onClick={handleRun}
                 disabled={isRunning}
                 className={`${secondaryButtonClass} w-full sm:w-auto disabled:cursor-not-allowed disabled:opacity-50`}
               >
-                Check Challenge
+                Run Code
               </button>
               <button
                 type="button"
@@ -423,7 +467,7 @@ export default function PythonPlayground({
           <div className="space-y-4">
             <div className={`rounded-[1.5rem] border p-5 ${styles.challenge}`}>
               <p className={`text-xs uppercase tracking-[0.3em] ${styles.accent}`}>
-                Challenge Goal
+                Lab Goal
               </p>
               <p className="mt-3 text-sm leading-7 text-slate-200">
                 {playground.goal}

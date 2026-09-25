@@ -119,6 +119,14 @@ const DIFFICULTY_STYLES = {
   Expert: 'bg-rose-500/15 text-rose-100 border-rose-300/30',
 };
 
+const CHAPTER_DECK_TABS = [
+  { id: 'play', label: 'Play' },
+  { id: 'lab', label: 'Lab' },
+  { id: 'briefing', label: 'Briefing' },
+  { id: 'codebook', label: 'Codebook' },
+  { id: 'reward', label: 'Reward' },
+];
+
 const SPELLBOOK_BY_TONE = {
   forest: [
     {
@@ -232,11 +240,13 @@ const SPELLBOOK_BY_TONE = {
 
 export default function ChapterAdventurePage({ chapter }) {
   const { progress, markComplete } = useProgress();
+  const [activePanel, setActivePanel] = useState('play');
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState({});
   const [shownHints, setShownHints] = useState({});
   const [playgroundSolved, setPlaygroundSolved] = useState(false);
+  const [showCompletionBurst, setShowCompletionBurst] = useState(false);
   const theme = THEME_STYLES[chapter.tone] ?? THEME_STYLES.forest;
   const spellbookEntries =
     chapter.spellbook?.entries ?? SPELLBOOK_BY_TONE[chapter.tone] ?? [];
@@ -265,6 +275,9 @@ export default function ChapterAdventurePage({ chapter }) {
     : solvedCount === totalPuzzles && playgroundRequired && !playgroundRequirementMet
       ? 'Spell Lab Needed'
       : 'In Progress';
+  const visibleDeckTabs = CHAPTER_DECK_TABS.filter(
+    (tab) => playgroundRequired || tab.id !== 'lab'
+  );
 
   useEffect(() => {
     if (chapterRequirementsMet && !storedCompletion) {
@@ -272,27 +285,90 @@ export default function ChapterAdventurePage({ chapter }) {
     }
   }, [chapter.progressKey, chapterRequirementsMet, markComplete, storedCompletion]);
 
+  useEffect(() => {
+    if (!showCompletionBurst) return undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      setShowCompletionBurst(false);
+    }, 3600);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [showCompletionBurst]);
+
   function setAnswer(puzzleId, value) {
     setAnswers((previous) => ({ ...previous, [puzzleId]: value }));
     setResults((previous) => ({ ...previous, [puzzleId]: null }));
   }
 
   function handleChoice(puzzle, choice) {
+    const isCorrect = choice === puzzle.answer;
+    const wasAlreadySolved = results[puzzle.id] === 'success';
+    const nextSolvedCount = solvedCount + (isCorrect && !wasAlreadySolved ? 1 : 0);
+
+    if (
+      isCorrect &&
+      !storedCompletion &&
+      nextSolvedCount === totalPuzzles &&
+      playgroundRequirementMet
+    ) {
+      setShowCompletionBurst(true);
+      setActivePanel('reward');
+    } else if (
+      isCorrect &&
+      playgroundRequired &&
+      !playgroundRequirementMet &&
+      nextSolvedCount === totalPuzzles
+    ) {
+      setActivePanel('lab');
+    }
+
     setAnswers((previous) => ({ ...previous, [puzzle.id]: choice }));
     setResults((previous) => ({
       ...previous,
-      [puzzle.id]: choice === puzzle.answer ? 'success' : 'fail',
+      [puzzle.id]: isCorrect ? 'success' : 'fail',
     }));
   }
 
   function handleInputCheck(puzzle) {
     const submittedValue = answers[puzzle.id] ?? '';
     const isCorrect = puzzle.validate(submittedValue);
+    const wasAlreadySolved = results[puzzle.id] === 'success';
+    const nextSolvedCount = solvedCount + (isCorrect && !wasAlreadySolved ? 1 : 0);
+
+    if (
+      isCorrect &&
+      !storedCompletion &&
+      nextSolvedCount === totalPuzzles &&
+      playgroundRequirementMet
+    ) {
+      setShowCompletionBurst(true);
+      setActivePanel('reward');
+    } else if (
+      isCorrect &&
+      playgroundRequired &&
+      !playgroundRequirementMet &&
+      nextSolvedCount === totalPuzzles
+    ) {
+      setActivePanel('lab');
+    }
 
     setResults((previous) => ({
       ...previous,
       [puzzle.id]: isCorrect ? 'success' : 'fail',
     }));
+  }
+
+  function handlePlaygroundSolved() {
+    if (!storedCompletion && solvedCount === totalPuzzles) {
+      setShowCompletionBurst(true);
+      setActivePanel('reward');
+    } else {
+      setActivePanel('play');
+    }
+
+    setPlaygroundSolved(true);
   }
 
   function showHint(puzzleId) {
@@ -321,6 +397,10 @@ export default function ChapterAdventurePage({ chapter }) {
       className="min-h-screen bg-slate-950 text-white relative overflow-hidden"
       style={bodyStyle}
     >
+      {showCompletionBurst ? (
+        <ConfettiBurst className="confetti-burst--screen" />
+      ) : null}
+
       {/* Background atmosphere */}
       <div className="absolute inset-0">
         <div className={`absolute -top-24 -left-10 h-72 w-72 rounded-full blur-3xl float-slow ${theme.backgroundOne}`} />
@@ -381,6 +461,80 @@ export default function ChapterAdventurePage({ chapter }) {
           </div>
         </header>
 
+        {/* Chapter deck navigation */}
+        <section className={`${chapterFrame} py-4 fade-in`}>
+          <div className={`${panelClass} p-4`}>
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className={`text-xs uppercase tracking-[0.32em] ${theme.accentText}`}>
+                  Mission Deck
+                </p>
+                <p className="mt-2 text-sm leading-6 text-slate-300">
+                  Stay in one mode, then switch when you need story, lab, spells, or rewards.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-5 lg:min-w-[34rem]">
+                {visibleDeckTabs.map((tab) => {
+                  const isActive = activePanel === tab.id;
+                  const tabNote =
+                    tab.id === 'play'
+                      ? `${displaySolvedCount}/${totalPuzzles}`
+                      : tab.id === 'lab'
+                        ? playgroundRequirementMet
+                          ? 'Clear'
+                          : 'Need'
+                        : tab.id === 'reward'
+                          ? isChapterComplete
+                            ? 'Ready'
+                            : 'Lock'
+                          : '';
+
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setActivePanel(tab.id)}
+                      aria-pressed={isActive}
+                      className={`min-h-12 rounded-2xl border px-3 py-2 text-center text-sm font-semibold transition btn-press ${
+                        isActive
+                          ? 'border-emerald-300/50 bg-emerald-400 text-slate-950 shadow-[0_14px_34px_rgba(16,185,129,0.22)]'
+                          : 'border-white/10 bg-white/[0.03] text-slate-200 hover:bg-white/10'
+                      }`}
+                    >
+                      <span className="block">{tab.label}</span>
+                      {tabNote ? (
+                        <span
+                          className={`mt-1 block text-[10px] uppercase tracking-[0.18em] ${
+                            isActive ? 'text-slate-800' : 'text-slate-400'
+                          }`}
+                        >
+                          {tabNote}
+                        </span>
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-white/10">
+              <div
+                className={`h-full transition-all ${theme.progressBar}`}
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
+            <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-400">
+              <span>Puzzles: {displaySolvedCount} of {totalPuzzles}</span>
+              {playgroundRequired ? (
+                <span>Lab: {playgroundRequirementMet ? 'Cleared' : 'Required'}</span>
+              ) : null}
+              <span>Chapter flow: {clearedObjectives} of {totalObjectives}</span>
+            </div>
+          </div>
+        </section>
+
+        {activePanel === 'briefing' ? (
+          <>
         {/* Story intro */}
         <section className={`${chapterFrame} py-6 fade-in`}>
           <div className={`${panelClass} p-6 md:p-8`}>
@@ -506,21 +660,24 @@ export default function ChapterAdventurePage({ chapter }) {
             </div>
           </div>
         </section>
+          </>
+        ) : null}
 
         {/* Live coding practice */}
-        {chapter.playground ? (
+        {activePanel === 'lab' && chapter.playground ? (
           <section className={`${chapterFrame} py-4 fade-in`}>
             <PythonPlayground
               chapterTitle={chapter.title}
               playground={chapter.playground}
               tone={chapter.tone}
               isCleared={playgroundRequirementMet}
-              onSolved={() => setPlaygroundSolved(true)}
+              onSolved={handlePlaygroundSolved}
             />
           </section>
         ) : null}
 
         {/* Play area */}
+        {activePanel === 'play' ? (
         <section className={`${chapterFrame} py-6 fade-in`}>
           <div className={`relative overflow-hidden ${panelClass} p-6 md:p-8`}>
             <div className={`pointer-events-none absolute -top-16 right-6 h-32 w-32 rounded-full blur-3xl float-slow ${theme.playGlowOne}`} />
@@ -559,6 +716,39 @@ export default function ChapterAdventurePage({ chapter }) {
               />
             </div>
 
+            <div className="mt-5 grid grid-cols-5 gap-2">
+              {chapter.puzzles.map((puzzle, index) => {
+                const puzzleState = results[puzzle.id];
+                const canOpenPuzzle =
+                  isChapterComplete ||
+                  index === 0 ||
+                  results[chapter.puzzles[index - 1]?.id] === 'success' ||
+                  puzzleState === 'success';
+                const isActivePuzzle = currentPuzzle === index;
+
+                return (
+                  <button
+                    key={puzzle.id}
+                    type="button"
+                    onClick={() => setCurrentPuzzle(index)}
+                    disabled={!canOpenPuzzle}
+                    className={`min-h-14 rounded-2xl border px-2 py-2 text-center transition btn-press disabled:cursor-not-allowed disabled:opacity-40 ${
+                      isActivePuzzle
+                        ? 'border-emerald-300/60 bg-emerald-400 text-slate-950'
+                        : puzzleState === 'success'
+                          ? 'border-emerald-300/30 bg-emerald-500/15 text-emerald-100'
+                          : 'border-white/10 bg-white/[0.03] text-slate-300 hover:bg-white/10'
+                    }`}
+                  >
+                    <span className="block text-sm font-semibold">{index + 1}</span>
+                    <span className="block text-[10px] uppercase tracking-[0.16em]">
+                      {puzzleState === 'success' ? 'Done' : isActivePuzzle ? 'Now' : 'Puzzle'}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
             <div
               className={`mt-6 rounded-3xl border border-white/10 bg-slate-950/60 p-5 fade-in hover-lift ${currentStatusClass}`}
             >
@@ -581,102 +771,111 @@ export default function ChapterAdventurePage({ chapter }) {
                 </span>
               </div>
 
-              <pre className={codeBlockClass} style={codeStyle}>
-                <code>{currentPuzzleData.code}</code>
-              </pre>
+              <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(260px,0.75fr)]">
+                <div>
+                  <pre className={codeBlockClass} style={codeStyle}>
+                    <code>{currentPuzzleData.code}</code>
+                  </pre>
 
-              {currentPuzzleData.type === 'choice' ? (
-                <div className="mt-4">
-                  <div className="mb-3 flex items-center justify-between gap-3">
-                    <p className="text-xs uppercase tracking-[0.28em] text-slate-400">
-                      Choose an Answer
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => showHint(currentPuzzleData.id)}
-                      aria-expanded={isCurrentHintShown}
-                      aria-label="Show a small hint"
-                      className="flex h-8 w-8 items-center justify-center rounded-full border border-sky-300/30 bg-sky-500/10 text-sm font-bold text-sky-100 transition btn-press hover:bg-sky-500/20"
+                  {isCurrentHintShown ? (
+                    <div className="mt-3 rounded-2xl border border-sky-300/25 bg-sky-500/10 px-4 py-3 text-sm leading-6 text-sky-100 fade-in">
+                      Small hint: {currentPuzzleData.hint}
+                    </div>
+                  ) : null}
+
+                  {currentResult ? (
+                    <div
+                      role="status"
+                      aria-live="polite"
+                      className={`mt-3 rounded-2xl border px-4 py-2 text-sm fade-in ${
+                        currentResult === 'success'
+                          ? 'bg-emerald-500/15 text-emerald-100 border-emerald-300/30'
+                          : 'bg-rose-500/10 text-rose-100 border-rose-300/30'
+                      }`}
                     >
-                      ?
-                    </button>
-                  </div>
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                    {currentPuzzleData.options.map((option) => {
-                      const isSelected = currentAnswer === option;
-                      const buttonStyle = isSelected
-                        ? 'bg-emerald-400 text-slate-900'
-                        : 'bg-slate-900/60 text-slate-200 hover:bg-white/10';
+                      {currentResult === 'success'
+                        ? currentPuzzleData.successText
+                        : currentPuzzleData.failureText}
+                    </div>
+                  ) : null}
+                </div>
 
-                      return (
+                <div className="rounded-[1.5rem] border border-white/10 bg-slate-900/70 p-4 lg:sticky lg:top-6">
+                  {currentPuzzleData.type === 'choice' ? (
+                    <div>
+                      <div className="mb-3 flex items-center justify-between gap-3">
+                        <p className="text-xs uppercase tracking-[0.28em] text-slate-400">
+                          Answer Console
+                        </p>
                         <button
-                          key={option}
                           type="button"
-                          onClick={() => handleChoice(currentPuzzleData, option)}
-                          className={`rounded-2xl border border-white/10 px-3 py-2 text-sm font-semibold transition btn-press ${buttonStyle}`}
+                          onClick={() => showHint(currentPuzzleData.id)}
+                          aria-expanded={isCurrentHintShown}
+                          aria-label="Show a small hint"
+                          className="flex h-8 w-8 items-center justify-center rounded-full border border-sky-300/30 bg-sky-500/10 text-sm font-bold text-sky-100 transition btn-press hover:bg-sky-500/20"
                         >
-                          {option}
+                          ?
                         </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ) : (
-                <div className="mt-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <label className="text-xs text-slate-400">
-                      {currentPuzzleData.inputLabel}
-                    </label>
-                    <button
-                      type="button"
-                      onClick={() => showHint(currentPuzzleData.id)}
-                      aria-expanded={isCurrentHintShown}
-                      aria-label="Show a small hint"
-                      className="flex h-8 w-8 items-center justify-center rounded-full border border-sky-300/30 bg-sky-500/10 text-sm font-bold text-sky-100 transition btn-press hover:bg-sky-500/20"
-                    >
-                      ?
-                    </button>
-                  </div>
-                  <input
-                    type="text"
-                    value={currentAnswer}
-                    onChange={(event) =>
-                      setAnswer(currentPuzzleData.id, event.target.value)
-                    }
-                    placeholder={currentPuzzleData.placeholder}
-                    className={inputClass}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => handleInputCheck(currentPuzzleData)}
-                    className={`${primaryButtonClass} mt-3 w-full`}
-                  >
-                    {currentPuzzleData.actionLabel}
-                  </button>
-                </div>
-              )}
+                      </div>
+                      <div className="grid grid-cols-1 gap-3">
+                        {currentPuzzleData.options.map((option) => {
+                          const isSelected = currentAnswer === option;
+                          const buttonStyle = isSelected
+                            ? 'bg-emerald-400 text-slate-900'
+                            : 'bg-slate-950/70 text-slate-200 hover:bg-white/10';
 
-              {isCurrentHintShown ? (
-                <div className="mt-3 rounded-2xl border border-sky-300/25 bg-sky-500/10 px-4 py-3 text-sm leading-6 text-sky-100 fade-in">
-                  Small hint: {currentPuzzleData.hint}
+                          return (
+                            <button
+                              key={option}
+                              type="button"
+                              onClick={() => handleChoice(currentPuzzleData, option)}
+                              className={`min-h-12 rounded-2xl border border-white/10 px-3 py-2 text-sm font-semibold transition btn-press ${buttonStyle}`}
+                            >
+                              {option}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="flex items-center justify-between gap-3">
+                        <label className="text-xs uppercase tracking-[0.24em] text-slate-400">
+                          Answer Console
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => showHint(currentPuzzleData.id)}
+                          aria-expanded={isCurrentHintShown}
+                          aria-label="Show a small hint"
+                          className="flex h-8 w-8 items-center justify-center rounded-full border border-sky-300/30 bg-sky-500/10 text-sm font-bold text-sky-100 transition btn-press hover:bg-sky-500/20"
+                        >
+                          ?
+                        </button>
+                      </div>
+                      <p className="mt-3 text-sm text-slate-300">
+                        {currentPuzzleData.inputLabel}
+                      </p>
+                      <input
+                        type="text"
+                        value={currentAnswer}
+                        onChange={(event) =>
+                          setAnswer(currentPuzzleData.id, event.target.value)
+                        }
+                        placeholder={currentPuzzleData.placeholder}
+                        className={inputClass}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleInputCheck(currentPuzzleData)}
+                        className={`${primaryButtonClass} mt-3 w-full`}
+                      >
+                        {currentPuzzleData.actionLabel}
+                      </button>
+                    </div>
+                  )}
                 </div>
-              ) : null}
-
-              {currentResult ? (
-                <div
-                  role="status"
-                  aria-live="polite"
-                  className={`mt-3 rounded-2xl border px-4 py-2 text-sm fade-in ${
-                    currentResult === 'success'
-                      ? 'bg-emerald-500/15 text-emerald-100 border-emerald-300/30'
-                      : 'bg-rose-500/10 text-rose-100 border-rose-300/30'
-                  }`}
-                >
-                  {currentResult === 'success'
-                    ? currentPuzzleData.successText
-                    : currentPuzzleData.failureText}
-                </div>
-              ) : null}
+              </div>
 
               <div className="mt-4">
                 <PipDialogue
@@ -729,19 +928,27 @@ export default function ChapterAdventurePage({ chapter }) {
             ) : null}
             {isChapterComplete && currentPuzzle === totalPuzzles - 1 ? (
               <p className={`mt-2 text-xs ${theme.accentText}`}>
-                All chapter objectives cleared. Scroll down to claim the chapter reward.
+                All chapter objectives cleared. Open the Reward tab to claim the chapter reward.
               </p>
             ) : null}
             {!isChapterComplete && solvedCount === totalPuzzles && playgroundRequired && !playgroundRequirementMet ? (
-              <p className="mt-2 text-xs text-amber-200">
-                Your puzzles are done. Clear the Spell Lab above to fully restore this chapter.
-              </p>
+              <div className="mt-3 flex flex-col gap-2 rounded-2xl border border-amber-300/25 bg-amber-500/10 px-4 py-3 text-xs text-amber-100 sm:flex-row sm:items-center sm:justify-between">
+                <span>Your puzzles are done. One lab objective is still waiting.</span>
+                <button
+                  type="button"
+                  onClick={() => setActivePanel('lab')}
+                  className="rounded-full border border-amber-200/30 bg-amber-300/15 px-3 py-2 font-semibold text-amber-50 transition btn-press hover:bg-amber-300/25"
+                >
+                  Open Lab
+                </button>
+              </div>
             ) : null}
           </div>
         </section>
+        ) : null}
 
         {/* Codebook unlocks */}
-        {spellbookEntries.length ? (
+        {activePanel === 'codebook' && spellbookEntries.length ? (
           <section className={`${chapterFrame} py-6 fade-in`}>
             <div className={`${softPanelClass} p-6 md:p-8`}>
               <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
@@ -810,6 +1017,7 @@ export default function ChapterAdventurePage({ chapter }) {
         ) : null}
 
         {/* Completion flow */}
+        {activePanel === 'reward' ? (
         <section className={`${chapterFrame} pb-12 fade-in`}>
           {isChapterComplete ? (
             <div className={`relative overflow-hidden rounded-[2.5rem] border p-6 md:p-8 ${theme.completionPanel}`}>
@@ -877,14 +1085,43 @@ export default function ChapterAdventurePage({ chapter }) {
               </div>
             </div>
           ) : (
-            <PipDialogue
-              type="encouragement"
-              title="Pip's Encouragement"
-              message="You are past the warm-up now. Read every line carefully, trace the values, and trust your reasoning."
-              note="Harder puzzles just mean the kingdom trusts you with more magic."
-            />
+            <div className={`${panelClass} p-6 md:p-8`}>
+              <p className={`text-xs uppercase tracking-[0.35em] ${theme.accentText}`}>
+                Reward Locked
+              </p>
+              <h2 className="mt-3 text-2xl font-semibold text-slate-100">
+                Finish the active objectives first.
+              </h2>
+              <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <button
+                  type="button"
+                  onClick={() => setActivePanel('play')}
+                  className={`${primaryButtonClass} w-full`}
+                >
+                  Continue Puzzles
+                </button>
+                {playgroundRequired && !playgroundRequirementMet ? (
+                  <button
+                    type="button"
+                    onClick={() => setActivePanel('lab')}
+                    className={`${secondaryButtonClass} w-full`}
+                  >
+                    Open Spell Lab
+                  </button>
+                ) : null}
+              </div>
+              <div className="mt-5">
+                <PipDialogue
+                  type="encouragement"
+                  title="Pip's Encouragement"
+                  message="You are past the warm-up now. Read every line carefully, trace the values, and trust your reasoning."
+                  note="Harder puzzles just mean the kingdom trusts you with more magic."
+                />
+              </div>
+            </div>
           )}
         </section>
+        ) : null}
       </div>
     </main>
   );

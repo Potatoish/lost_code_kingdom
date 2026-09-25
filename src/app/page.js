@@ -4,10 +4,11 @@
   page.js
   =========
   Homepage / landing page for The Lost Code Kingdom.
-  This is a scrollable intro that links to the playable chapters.
+  This is an interactive quest dashboard that links to the playable chapters.
 */
 
 import Image from 'next/image';
+import { useState } from 'react';
 import AccountPanel from '@/components/AccountPanel';
 import Link from '@/components/TransitionLink';
 import PipDialogue from '@/components/PipDialogue';
@@ -42,6 +43,12 @@ const highlights = [
     title: 'Guided by Pip',
     detail: 'Your snake companion gives hints, lore, and encouragement without breaking the adventure vibe.',
   },
+];
+
+const dashboardTabs = [
+  { id: 'realms', label: 'Realms' },
+  { id: 'puzzles', label: 'Puzzles' },
+  { id: 'guide', label: 'Pip Guide' },
 ];
 
 const toneStyles = {
@@ -80,7 +87,15 @@ const toneStyles = {
 };
 
 export default function Home() {
+  const [activeDashboardTab, setActiveDashboardTab] = useState('realms');
+  const [selectedChapterSlug, setSelectedChapterSlug] = useState(
+    PLAYABLE_CHAPTERS[0]?.slug
+  );
   const { progress, isLoaded } = useProgress();
+  const selectedChapter =
+    PLAYABLE_CHAPTERS.find((chapter) => chapter.slug === selectedChapterSlug) ??
+    PLAYABLE_CHAPTERS[0];
+  const selectedTone = toneStyles[selectedChapter?.tone] ?? toneStyles.forest;
   const completedCount = PLAYABLE_CHAPTERS.reduce(
     (count, chapter) => count + (progress[chapter.progressKey] ? 1 : 0),
     0
@@ -244,199 +259,267 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Chapter previews */}
-        <section className={`${siteFrame} py-16 fade-in`}>
-          <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-emerald-200">
-                World Map
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold md:text-4xl" style={headingStyle}>
-                Current Questline
-              </h2>
-              <p className="mt-3 max-w-2xl leading-7 text-slate-300">
-                Begin in the Forest of Variables, follow the River of Conditions,
-                descend into the Looping Caverns, then map the List Labyrinth. The
-                deeper realms remain locked for future chapters.
-              </p>
+        {/* Quest dashboard */}
+        <section className={`${siteFrame} py-12 fade-in`}>
+          <div className={`${panelClass} overflow-hidden p-4 sm:p-6 md:p-8`}>
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.4em] text-emerald-200">
+                  Quest Dashboard
+                </p>
+                <h2 className="mt-3 text-3xl font-semibold md:text-4xl" style={headingStyle}>
+                  Pick, Preview, Play
+                </h2>
+                <p className="mt-3 max-w-2xl leading-7 text-slate-300">
+                  The kingdom is now grouped into quick views, so the home page feels
+                  more like a game menu and less like a long scroll.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-200">
+                Progress:{' '}
+                <span className="font-semibold text-emerald-200">
+                  {isLoaded ? completedCount : 0}
+                </span>{' '}
+                of {PLAYABLE_CHAPTERS.length} playable chapters completed
+              </div>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-200">
-              Progress:{' '}
-              <span className="font-semibold text-emerald-200">
-                {isLoaded ? completedCount : 0}
-              </span>{' '}
-              of {PLAYABLE_CHAPTERS.length} playable chapters completed
+
+            <div className="mt-6 grid grid-cols-1 gap-2 rounded-[1.75rem] border border-white/10 bg-slate-950/45 p-2 sm:grid-cols-3">
+              {dashboardTabs.map((tab) => {
+                const isActive = activeDashboardTab === tab.id;
+
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setActiveDashboardTab(tab.id)}
+                    aria-pressed={isActive}
+                    className={`min-h-12 rounded-2xl px-4 py-3 text-sm font-semibold transition btn-press ${
+                      isActive
+                        ? 'bg-emerald-400 text-slate-950 shadow-[0_14px_34px_rgba(16,185,129,0.22)]'
+                        : 'border border-white/10 bg-white/[0.03] text-slate-200 hover:bg-white/10'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
             </div>
-          </div>
 
-          <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {PLAYABLE_CHAPTERS.map((chapter) => {
-              const tone = toneStyles[chapter.tone];
+            <div className="mt-6 min-h-[32rem] rounded-[2rem] border border-white/10 bg-slate-950/55 p-4 sm:p-5 md:p-6">
+              {activeDashboardTab === 'realms' ? (
+                <div className="grid grid-cols-1 gap-5 lg:grid-cols-[240px_minmax(0,1fr)]">
+                  <div className="grid grid-cols-2 gap-2 lg:grid-cols-1">
+                    {PLAYABLE_CHAPTERS.map((chapter) => {
+                      const isSelected = selectedChapter.slug === chapter.slug;
+                      const isCompleted = progress[chapter.progressKey];
+                      const tone = toneStyles[chapter.tone];
 
-              return (
-                <div
-                  key={chapter.slug}
-                  className={`relative overflow-hidden rounded-3xl border p-5 hover-lift ${tone.panel}`}
-                >
-                  <div className={`absolute -top-10 -right-10 h-28 w-28 rounded-full blur-2xl ${tone.glowOne}`} />
-                  <div className={`absolute bottom-0 left-10 h-24 w-24 rounded-full blur-2xl ${tone.glowTwo}`} />
-                  <div className="relative">
-                    <p className={`text-xs uppercase tracking-[0.3em] ${tone.accent}`}>
-                      {chapter.chapter} Art
-                    </p>
-                    <h3 className="mt-2 text-xl font-semibold text-slate-100">
-                      {chapter.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-slate-300">{chapter.artDescription}</p>
-                    <div className={`relative mt-4 h-36 overflow-hidden rounded-2xl border ${tone.artBorder}`}>
-                      <Image
-                        src={chapter.bannerSrc}
-                        alt={chapter.bannerAlt}
-                        fill
-                        unoptimized
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/15 to-transparent" />
-                      <div className={`absolute bottom-3 left-3 rounded-full border px-3 py-1 text-[11px] uppercase tracking-[0.25em] ${tone.label}`}>
-                        {chapter.bannerLabel}
+                      return (
+                        <button
+                          key={chapter.slug}
+                          type="button"
+                          onClick={() => setSelectedChapterSlug(chapter.slug)}
+                          className={`rounded-2xl border p-3 text-left transition btn-press ${
+                            isSelected
+                              ? `${tone.panel} ${tone.artBorder} shadow-[0_18px_42px_rgba(2,6,23,0.26)]`
+                              : 'border-white/10 bg-white/[0.03] hover:bg-white/10'
+                          }`}
+                        >
+                          <span className={`text-[11px] uppercase tracking-[0.24em] ${tone.accent}`}>
+                            {chapter.chapter}
+                          </span>
+                          <span className="mt-1 block text-sm font-semibold text-slate-100">
+                            {chapter.title}
+                          </span>
+                          <span className="mt-2 block text-xs text-slate-400">
+                            {isCompleted ? 'Completed' : chapter.cta}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <div className={`relative overflow-hidden rounded-3xl border p-5 ${selectedTone.panel}`}>
+                    <div className={`absolute -right-14 -top-14 h-36 w-36 rounded-full blur-3xl ${selectedTone.glowOne}`} />
+                    <div className={`absolute bottom-0 left-8 h-28 w-28 rounded-full blur-3xl ${selectedTone.glowTwo}`} />
+                    <div className="relative grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1fr)_320px]">
+                      <div>
+                        <p className={`text-xs uppercase tracking-[0.32em] ${selectedTone.accent}`}>
+                          {selectedChapter.chapter} Preview
+                        </p>
+                        <h3 className="mt-3 text-3xl font-semibold text-slate-100" style={headingStyle}>
+                          {selectedChapter.title}
+                        </h3>
+                        <p className="mt-3 text-sm leading-6 text-slate-300">
+                          {selectedChapter.statusDescription}
+                        </p>
+
+                        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                          <div className={`${softPanelClass} rounded-2xl p-4`}>
+                            <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400">
+                              Focus
+                            </p>
+                            <p className="mt-2 text-sm text-slate-200">{selectedChapter.focus}</p>
+                          </div>
+                          <div className={`${softPanelClass} rounded-2xl p-4`}>
+                            <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400">
+                              Status
+                            </p>
+                            <p className="mt-2 text-sm text-slate-200">
+                              {progress[selectedChapter.progressKey] ? 'Completed' : selectedChapter.cta}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                          <Link className={`${primaryButtonClass} w-full sm:w-auto`} href={selectedChapter.href}>
+                            {progress[selectedChapter.progressKey] ? 'Revisit Chapter' : selectedChapter.cta}
+                          </Link>
+                          <Link className={`${secondaryButtonClass} w-full sm:w-auto`} href="/chapters">
+                            World Map
+                          </Link>
+                        </div>
+
+                        <div className="mt-5 flex flex-wrap gap-2">
+                          {CHAPTER_LIST.filter((chapter) => !chapter.playable).map((chapter) => (
+                            <span
+                              key={chapter.id}
+                              className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-slate-400"
+                            >
+                              {chapter.chapter}: Locked
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className={`relative min-h-64 overflow-hidden rounded-2xl border ${selectedTone.artBorder}`}>
+                        <Image
+                          src={selectedChapter.bannerSrc}
+                          alt={selectedChapter.bannerAlt}
+                          fill
+                          unoptimized
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                        <div className={`absolute bottom-3 left-3 rounded-full border px-3 py-1 text-[11px] uppercase tracking-[0.25em] ${selectedTone.label}`}>
+                          {selectedChapter.bannerLabel}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              ) : null}
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {CHAPTER_LIST.map((chapter) => {
-              const isCompleted = chapter.progressKey ? progress[chapter.progressKey] : false;
-              const statusLabel = isCompleted
-                ? 'Completed'
-                : chapter.playable
-                  ? 'Playable'
-                  : 'Locked';
-              const statusClasses = isCompleted
-                ? 'bg-amber-500/20 text-amber-100 border-amber-400/30 shadow-[0_0_12px_rgba(251,191,36,0.35)]'
-                : chapter.playable
-                  ? 'bg-emerald-500/20 text-emerald-200 border-emerald-400/30'
-                  : 'bg-slate-500/20 text-slate-300 border-slate-400/20';
-              const cardClasses = chapter.playable
-                ? `bg-white/5 border border-white/10 hover:border-emerald-300/40 hover-lift ${
-                    isCompleted ? 'shadow-[0_0_30px_rgba(251,191,36,0.15)]' : ''
-                  }`
-                : 'bg-slate-900/40 border border-white/5 opacity-70 sealed';
-              const buttonClasses = chapter.playable
-                ? isCompleted
-                  ? 'bg-amber-500/30 text-amber-100 border border-amber-400/40'
-                  : 'bg-emerald-500 hover:bg-emerald-400 text-slate-900'
-                : 'bg-slate-700 text-slate-300 cursor-not-allowed';
-              const buttonLabel = chapter.playable
-                ? isCompleted
-                  ? 'Revisit Chapter'
-                  : chapter.cta
-                : chapter.cta;
-
-              const content = (
-                <div className={`${cardClasses} flex h-full flex-col rounded-3xl p-6 transition`}>
-                  <div className="mb-4 flex items-center justify-between">
-                    <span
-                      className={`rounded-full border px-3 py-1 text-xs uppercase tracking-[0.2em] ${statusClasses}`}
-                    >
-                      {statusLabel}
-                    </span>
-                    <span className="text-xs text-slate-400">{chapter.chapter}</span>
+              {activeDashboardTab === 'puzzles' ? (
+                <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(220px,0.75fr)_minmax(0,1.6fr)]">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.4em] text-emerald-200">
+                      Training Grounds
+                    </p>
+                    <h3 className="mt-3 text-3xl font-semibold text-slate-100" style={headingStyle}>
+                      Puzzle Snapshots
+                    </h3>
+                    <p className="mt-4 leading-7 text-slate-300">
+                      Each realm has five puzzles plus a Spell Lab. The snapshots give
+                      you a quick read before jumping into the chapter.
+                    </p>
+                    <div className="mt-5 rounded-2xl border border-emerald-300/20 bg-emerald-500/10 p-4 text-sm text-emerald-100">
+                      {completedCount === PLAYABLE_CHAPTERS.length
+                        ? 'All active realms cleared.'
+                        : `${PLAYABLE_CHAPTERS.length - completedCount} active realm${PLAYABLE_CHAPTERS.length - completedCount === 1 ? '' : 's'} left to restore.`}
+                    </div>
                   </div>
-                  <h3 className="mb-3 text-xl font-semibold text-slate-100">
-                    {chapter.title}
-                  </h3>
-                  <p className="mb-4 text-sm leading-6 text-slate-300">{chapter.theme}</p>
-                  <p className="mb-6 text-xs text-slate-400">Focus: {chapter.focus}</p>
-                  <div className={`mt-auto w-full rounded-2xl py-3 text-center text-sm font-semibold ${buttonClasses}`}>
-                    {buttonLabel}
+
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    {PLAYABLE_CHAPTERS.map((chapter) => {
+                      const tone = toneStyles[chapter.tone];
+
+                      return (
+                        <Link
+                          key={chapter.slug}
+                          href={chapter.href}
+                          className={`block rounded-3xl border p-5 transition hover-lift ${tone.panel}`}
+                        >
+                          <div className="flex items-center justify-between gap-3">
+                            <p className={`text-xs uppercase tracking-[0.28em] ${tone.accent}`}>
+                              {chapter.chapter}
+                            </p>
+                            <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] text-slate-300">
+                              {chapter.puzzleSummary}
+                            </span>
+                          </div>
+                          <h4 className="mt-3 text-lg font-semibold text-slate-100">
+                            {chapter.snapshot.title}
+                          </h4>
+                          <p className="mt-2 text-sm leading-6 text-slate-300">
+                            {chapter.snapshot.story}
+                          </p>
+                          <pre className={`${codeBlockClass} text-xs`} style={codeStyle}>
+                            <code>{chapter.snapshot.code}</code>
+                          </pre>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
-              );
+              ) : null}
 
-              return chapter.playable ? (
-                <Link
-                  key={chapter.id}
-                  href={chapter.href}
-                  className="block rounded-3xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/50"
-                >
-                  {content}
-                </Link>
-              ) : (
-                <div key={chapter.id}>{content}</div>
-              );
-            })}
-          </div>
-        </section>
+              {activeDashboardTab === 'guide' ? (
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.4em] text-emerald-200">
+                      Pip Guide
+                    </p>
+                    <h3 className="mt-3 text-3xl font-semibold text-slate-100" style={headingStyle}>
+                      Companion Console
+                    </h3>
+                    <p className="mt-4 max-w-2xl leading-7 text-slate-300">
+                      Pip stays close while the lessons get sharper, with hints,
+                      feedback, and chapter notes inside the playable realms.
+                    </p>
 
-        {/* Puzzle previews */}
-        <section className={`${siteFrame} py-16 fade-in`}>
-          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-3">
-            <div className="lg:col-span-1">
-              <p className="text-xs uppercase tracking-[0.4em] text-emerald-200">
-                Training Grounds
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold" style={headingStyle}>
-                Puzzle Snapshots
-              </h2>
-              <p className="mt-4 leading-7 text-slate-300">
-                Each chapter carries five escalating puzzles, from warm-up checks to
-                stronger reasoning challenges that demand tracing and prediction.
-              </p>
-            </div>
+                    <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                      {highlights.map((item) => (
+                        <div key={item.title} className={`${softPanelClass} rounded-2xl p-4`}>
+                          <h4 className="mb-2 text-base font-semibold text-emerald-200">
+                            {item.title}
+                          </h4>
+                          <p className="text-sm leading-6 text-slate-300">{item.detail}</p>
+                        </div>
+                      ))}
+                    </div>
 
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4 lg:col-span-2">
-              {PLAYABLE_CHAPTERS.map((chapter) => (
-                <div
-                  key={chapter.slug}
-                  className="rounded-3xl border border-white/10 bg-slate-900/60 p-5 hover-lift"
-                >
-                  <h3 className="mb-2 text-lg font-semibold text-emerald-200">
-                    {chapter.snapshot.title}
-                  </h3>
-                  <p className="mb-4 text-sm leading-6 text-slate-300">
-                    {chapter.snapshot.story}
-                  </p>
-                  <pre className={`${codeBlockClass} text-xs`} style={codeStyle}>
-                    <code>{chapter.snapshot.code}</code>
-                  </pre>
+                    <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                      <Link className={`${primaryButtonClass} w-full sm:w-auto`} href="/chapters/forest-of-variables">
+                        Begin Quest
+                      </Link>
+                      <Link className={`${secondaryButtonClass} w-full sm:w-auto`} href="/chapters">
+                        Open World Map
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <PipDialogue
+                      type="encouragement"
+                      title="Pip the Python"
+                      message="If a puzzle feels tough, trace it one step at a time. Harder magic still breaks down into readable lines."
+                      note="Four realms are open, and Pip stays with you through all of them."
+                      className="hover-lift"
+                    />
+                    <div className="relative h-52 overflow-hidden rounded-3xl border border-emerald-300/20 bg-emerald-500/10">
+                      <Image
+                        src="/art/pip-mascot-cutout.png"
+                        alt="Pip the Python mascot"
+                        fill
+                        unoptimized
+                        className="object-contain p-5"
+                      />
+                    </div>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Pip guide section */}
-        <section className={`${siteFrame} pb-20 fade-in`}>
-          <div className="rounded-[2.5rem] border border-white/10 bg-gradient-to-r from-emerald-900/40 via-slate-900/60 to-slate-950/60 p-8 md:p-10">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-[0.4em] text-emerald-200">
-                  Pip Guide
-                </p>
-                <h2 className="mt-3 text-3xl font-semibold md:text-4xl" style={headingStyle}>
-                  Your Companion in Every Chapter
-                </h2>
-                <p className="mt-4 max-w-2xl leading-7 text-slate-300">
-                  Pip keeps the journey readable, gives friendly hints, and explains new
-                  Python ideas in simple language even when the puzzles start asking for deeper thinking.
-                </p>
-              </div>
-              <div className="w-full max-w-sm space-y-4">
-                <PipDialogue
-                  type="encouragement"
-                  title="Pip the Python"
-                  message="If a puzzle feels tough, trace it one step at a time. Harder magic still breaks down into readable lines."
-                  note="Four realms are open, and Pip stays with you through all of them."
-                  className="hover-lift"
-                />
-                <Link className={`${primaryButtonClass} w-full`} href="/chapters">
-                  Open World Map
-                </Link>
-              </div>
+              ) : null}
             </div>
           </div>
         </section>

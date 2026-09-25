@@ -22,6 +22,12 @@ const exactText = (expected) => (value) =>
 const oneOf = (acceptedValues) => (value) =>
   acceptedValues.some((accepted) => normalizeText(value) === normalizeText(accepted));
 
+const normalizeCode = (value) =>
+  String(value ?? '')
+    .replace(/\r/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
 export const PLAYABLE_CHAPTERS = [
   {
     id: 1,
@@ -115,6 +121,15 @@ export const PLAYABLE_CHAPTERS = [
         normalizeOutput(output) === 'Lumenwood' &&
         code.includes('forest_name') &&
         code.includes('print'),
+      fallbackValidate: ({ code }) => {
+        const source = normalizeCode(code);
+
+        return (
+          source.includes('forest_name') &&
+          source.includes('Lumenwood') &&
+          source.includes('print(forest_name)')
+        );
+      },
     },
     snapshot: {
       title: 'Forest Rename Ritual',
@@ -169,7 +184,7 @@ export const PLAYABLE_CHAPTERS = [
           'Fill the missing value so the print shows the forest\'s true name.',
         code: 'forest_name = ____\nprint(forest_name)',
         inputLabel: 'Type the forest name without quotes',
-        placeholder: 'Lumenwood',
+        placeholder: 'Type your answer',
         actionLabel: 'Check Spell',
         validate: exactText('Lumenwood'),
         successText: 'Great! Lumenwood answers the spell correctly.',
@@ -199,7 +214,7 @@ export const PLAYABLE_CHAPTERS = [
           'The lantern spirit gains more light. What number prints after the update?',
         code: 'lantern = 2\nlantern = lantern + 3\nprint(lantern)',
         inputLabel: 'Type the final number',
-        placeholder: '5',
+        placeholder: 'Type your answer',
         actionLabel: 'Check Answer',
         validate: exactText('5'),
         successText: 'Yes! The lantern now shines with power 5.',
@@ -319,6 +334,18 @@ export const PLAYABLE_CHAPTERS = [
         code.includes('if ') &&
         code.includes('else') &&
         code.includes('river'),
+      fallbackValidate: ({ code }) => {
+        const source = normalizeCode(code);
+
+        return (
+          source.includes('river') &&
+          source.includes('left') &&
+          source.includes('if ') &&
+          source.includes('else') &&
+          source.includes('Safe waters') &&
+          source.includes('Turn back')
+        );
+      },
     },
     snapshot: {
       title: 'Mist Branch',
@@ -373,7 +400,7 @@ export const PLAYABLE_CHAPTERS = [
           'Fill the operator so the river compares the direction correctly.',
         code: "direction = 'right'\nif direction ____ 'right':\n    print('Safe waters')",
         inputLabel: 'Type the operator',
-        placeholder: '==',
+        placeholder: 'Type your answer',
         actionLabel: 'Check Condition',
         validate: exactText('=='),
         successText: 'Nice! The condition now compares both values correctly.',
@@ -518,6 +545,16 @@ export const PLAYABLE_CHAPTERS = [
         normalizeOutput(output) === 'Echo 1\nEcho 2\nEcho 3' &&
         code.includes('for ') &&
         code.includes('range'),
+      fallbackValidate: ({ code }) => {
+        const source = normalizeCode(code);
+
+        return (
+          source.includes('for ') &&
+          source.includes('range(1, 4)') &&
+          source.includes('print') &&
+          source.includes('Echo')
+        );
+      },
     },
     snapshot: {
       title: 'Echo Counter',
@@ -570,7 +607,7 @@ export const PLAYABLE_CHAPTERS = [
         prompt: 'Fill the missing number so the loop prints 0, 1, 2, 3.',
         code: 'for echo in range(____):\n    print(echo)',
         inputLabel: 'Type the stopping number',
-        placeholder: '4',
+        placeholder: 'Type your answer',
         actionLabel: 'Check Loop',
         validate: exactText('4'),
         successText: 'Nice! The loop now prints four values: 0 through 3.',
@@ -599,7 +636,7 @@ export const PLAYABLE_CHAPTERS = [
         code:
           'total = 0\nfor crystal in range(1, 4):\n    total = total + crystal\nprint(total)',
         inputLabel: 'Type the final total',
-        placeholder: '6',
+        placeholder: 'Type your answer',
         actionLabel: 'Check Total',
         validate: exactText('6'),
         successText: 'Exactly! 1 + 2 + 3 gives a final total of 6.',
@@ -716,6 +753,17 @@ export const PLAYABLE_CHAPTERS = [
         normalizeOutput(output) === 'Lantern' &&
         code.includes('relics') &&
         code.includes('print'),
+      fallbackValidate: ({ code }) => {
+        const source = normalizeCode(code);
+
+        return (
+          source.includes('relics') &&
+          source.includes('Key') &&
+          source.includes('Lantern') &&
+          source.includes('Map') &&
+          source.includes('print(relics[1])')
+        );
+      },
     },
     snapshot: {
       title: 'Relic Index',
@@ -770,7 +818,7 @@ export const PLAYABLE_CHAPTERS = [
         prompt: 'Fill the index so the list prints Lantern.',
         code: "relics = ['Key', 'Lantern', 'Map']\nprint(relics[____])",
         inputLabel: 'Type the index number',
-        placeholder: '1',
+        placeholder: 'Type your answer',
         actionLabel: 'Check Index',
         validate: exactText('1'),
         successText: 'Nice! Index 1 points to the second item: Lantern.',
@@ -799,7 +847,7 @@ export const PLAYABLE_CHAPTERS = [
         code:
           "paths = ['left', 'right']\npaths.append('center')\nprint(len(paths))",
         inputLabel: 'Type the final count',
-        placeholder: '3',
+        placeholder: 'Type your answer',
         actionLabel: 'Check Count',
         validate: exactText('3'),
         successText: 'Exactly! append() adds one item, so the list now has 3.',

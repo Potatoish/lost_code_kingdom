@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-body: Georgia, "Times New Roman", serif;
+  --font-heading: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --font-code: "Cascadia Mono", Consolas, "Liberation Mono", monospace;
 }
 
 @theme inline {
@@ -354,6 +357,19 @@ body {
   animation-fill-mode: forwards;
 }
 
+.confetti-burst--screen {
+  position: fixed;
+  z-index: 80;
+  overflow: hidden;
+}
+
+.confetti-burst--screen .confetti-piece {
+  top: -24px;
+  width: 10px;
+  height: 18px;
+  animation-name: confetti-fall-screen;
+}
+
 @keyframes confetti-fall {
   0% {
     transform: translateY(0) rotate(0deg);
@@ -363,7 +379,24 @@ body {
     opacity: 1;
   }
   100% {
-    transform: translateY(240px) rotate(140deg);
+    transform: translateY(240px) rotate(var(--confetti-rotate, 140deg));
+    opacity: 0;
+  }
+}
+
+@keyframes confetti-fall-screen {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(var(--confetti-rotate, 180deg));
     opacity: 0;
   }
 }
